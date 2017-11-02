@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script src="./AJAX.js"></script>
+<script>
+    ajax('asdfds', 'post', {}, function (res) {console.log(res)});
+    var script = document.createElement('script');
+    script.src = 'http://summary.com/client_JS_servers/source.php';
+    document.body.appendChild(script);
+    function fn(data) {
+        console.log(data);
+    }
+    var a1 = JSON.parse('{"name":"hh"}');
+    console.log(a1);
+    var a2 = JSON.stringify(a1);
+    console.log(a2);
+</script>
+</html>
