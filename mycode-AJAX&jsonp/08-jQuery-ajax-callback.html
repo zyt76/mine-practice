@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery中AJAX的回调</title>
+    <script src="./jquery-1.12.4.js"></script>
+</head>
+<body>
+    
+</body>
+<script>
+    $.ajax({
+        url: 'time1.php',
+        type: 'get',
+        beforeSend: function (xhr) {
+            // 在所有发送请求的操作(open, send)之前执行
+            console.log('beforesend', xhr);
+        },
+        success: function (res) {
+            // 只有请求成功(状态码为200), 才会执行函数
+            console.log(res);
+        },
+        error: function (xhr) {
+            // 只有请求不正常(状态码不为200)才会执行
+            console.log(xhr);
+        },
+        complete: function (xhr) {
+            // 不管是成功还是失败都是完成, 都会执行这个 complete 函数
+            console.log(xhr);
+        }
+    })
+
+    // // 原生操作中不管请求状态码是多少都会触发回调
+    // var xhr = new XMLHttpRequest();
+    // xhr.open('GET', 'time1.php');
+    // xhr.send();
+    // xhr.onreadystatechange = function () {
+    //     if (this.readyState !== 4) return;
+    //     console.log(this.responseText);
+    // }
+</script>
+</html>

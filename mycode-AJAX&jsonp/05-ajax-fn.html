@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+
+  // 封装者==========================================
+  function ajax(method, url, params) {
+    var result = null;
+    method = method.toUpperCase();
+    var xhr = new XMLHttpRequest();
+
+    // 将 object 类型的参数转换为 key=value&key=value
+    if (typeof params === 'object') {
+      var tempArr = [];
+      for (var key in params) {
+        var value = params[key];
+        tempArr.push(key + '=' + value);
+      }
+      // tempArr => ['key1=value1', 'key2=value2']
+      params = tempArr.join('&');
+    }
+    if (method === 'GET') {
+      url += '?' + params;
+    }
+    xhr.open(method, url);
+    var data = null;
+    if (method === 'POST') {
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      data = params;
+    }
+    xhr.send(data);
+    xhr.onreadystatechange = function () {
+      if (this.readyState !== 4) return;
+      // 不应该在封装的函数中主观的处理响应的结果
+      // 无法在内部包含的函数中通过 return 给外部函数的调用返回结果
+      // return this;
+      // 由于异步模式下, 这里的代码脱离了标准执行流, 所以不可能在标准执行流中返回这里的数据
+      result = this.responseText;
+    }
+    return result;
+  }
+
+  // 调用者================================================
+  ajax('POST', 'add.php', { key1: 'value1', key2: 'value2' });
+  
+</script>
+
+</html>

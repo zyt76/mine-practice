@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery全局事件处理函数</title>
+    <script src="./jquery-1.12.4.js"></script>
+    <style>
+        .loading {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            background-color: black;
+            opacity: .3;
+        }
+    </style>
+</head>
+<body>
+    <div class="loading"></div>
+    <button id="btn">点</button>
+</body>
+<script>
+    $(document).ajaxStart(function () {
+        // 只要有 ajax 请求发生, 就会执行
+        $('.loading').fadeIn();
+    });
+    $(document).ajaxStop(function () {
+        // 只要有 ajax 请求结束, 就会执行
+        $('.loading').fadeOut();
+    })
+    // $.ajax({
+    //     url: 'time.php',
+    //     beforeSend: function (xhr) {
+    //         // 显示加载提示
+    //         // $('.loading').fadeIn();
+    //         console.log('注意即将要开始请求了');
+    //     },
+    //     complete: function (xhr) {
+    //         // 结束提示
+    //         // $('.loading').fadeOut();
+    //         console.log('请求结束了');
+    //     }
+    // })
+    $('#btn').on('click', function () {
+        $.get('time.php');
+    })
+</script>
+</html>
